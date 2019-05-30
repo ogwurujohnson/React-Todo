@@ -96,7 +96,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <h2>Welcome to your Todo App!</h2>
         <div className="todo">
           <TodoForm values={this.state.value} removeCompleted = {this.removeCompleted} onChange={this.onChange} onClick={this.addTodo}/>
