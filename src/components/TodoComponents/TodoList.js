@@ -10,11 +10,11 @@ export default function TodoList(props) {
     const { todos, onFinish, completed, removeCompleted } = props;
     return (
         <div>
-            <h3>Pending Todos</h3>
+            <h3>Todos</h3>
             {todos.map(todo => {
                 return <Todo  key={todo.id} todo={todo} onFinish={onFinish} removeCompleted={removeCompleted} />
             })}
-            <h3>Completed</h3>
+            <h3>History</h3>
             {completed.map(todo => {
                 return <CompletedTodo key={todo.id} completed={todo}/>
             })}
