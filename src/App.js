@@ -2,13 +2,7 @@ import React, {Component} from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
-// font awesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheck, faTimes, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
-
 import './components/TodoComponents/Todo.css';
-
-library.add(faCheck, faTimes, faTrash, faPlus)
 
 const defaultContent = [
   {
@@ -96,14 +90,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <h2>Welcome to your Todo App!</h2>
-        <div className="todo">
-          <TodoForm values={this.state.value} removeCompleted = {this.removeCompleted} onChange={this.onChange} onClick={this.addTodo}/>
-          <TodoList todos={this.state.todo} removeCompleted = {this.removeSingle} completed={this.state.completedtodo} onFinish={this.onFinish}/>
-        </div>
+        <TodoForm values={this.state.value} removeCompleted = {this.removeCompleted} onChange={this.onChange} onClick={this.addTodo}/>
+        <TodoList todos={this.state.todo} removeCompleted = {this.removeSingle} completed={this.state.completedtodo} onFinish={this.onFinish}/>
       </div>
-     
     );
   }
 }
