@@ -93,7 +93,7 @@
 }
 
 .singleTodo .removeSelected {
-    background: black;
+    font-size: 16px;
     color: white;
     font-size: 16px;
 }
