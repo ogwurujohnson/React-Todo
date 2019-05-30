@@ -4,24 +4,25 @@ import TodoForm from './components/TodoComponents/TodoForm';
 
 import './components/TodoComponents/Todo.css';
 
+const defaultContent = [
+  {
+    task: 'Visit Melvine',
+    id: 1528817077286,
+    completed: false
+  },
+  {
+    task: 'Go to Hospital',
+    id: 1528817084358,
+    completed: false
+  }
+]
+
 class App extends Component {
   constructor () {
     super();
-    this.defaultContent = [
-      {
-        task: 'Visit Melvine',
-        id: 1528817077286,
-        completed: false
-      },
-      {
-        task: 'Go to Hospital',
-        id: 1528817084358,
-        completed: false
-      }
-    ]
 
     this.state = {
-      todo: this.defaultContent,
+      todo: defaultContent,
       completedtodo: [],
       value: ''
     }
@@ -30,7 +31,11 @@ class App extends Component {
   async componentDidMount() {
     const item = localStorage.getItem('todos');
     const itemData = JSON.parse(item);
-    this.setState({todo: itemData || this.defaultContent})
+    await this.setState({todo: itemData || defaultContent})
+
+    const removed = localStorage.getItem('removed');
+    const removedData = JSON.parse(removed);
+    await this.setState({completedtodo: removedData || []})
   }
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -65,18 +70,22 @@ class App extends Component {
     })})
   }
 
-  removeCompleted = () => {
-    this.setState({todo: this.state.todo.filter(todos => todos.completed === false)});
+  removeCompleted = async () => {
     const newArr = this.state.todo.filter(todos => todos.completed === true);
-   
-    this.setState({completedtodo: [...this.state.completedtodo, ...newArr]});
-    
+    await this.setState({completedtodo: [...this.state.completedtodo, ...newArr]});
+    await localStorage.setItem('removed', JSON.stringify(this.state.completedtodo));
+
+    await this.setState({todo: this.state.todo.filter(todos => todos.completed === false)});
+    await localStorage.setItem('todos', JSON.stringify(this.state.todo));
   }
 
-  removeSingle = (index) => {
-    this.setState({todo: this.state.todo.filter(todos => todos.id !== index)});
+  removeSingle = async (index) => {
     const newArr = this.state.todo.filter(todos => todos.id === index);
-    this.setState({completedtodo: [...this.state.completedtodo, newArr[0]]});
+    await this.setState({completedtodo: [...this.state.completedtodo, newArr[0]]});
+    await localStorage.setItem('removed', JSON.stringify(this.state.completedtodo));
+
+    await this.setState({todo: this.state.todo.filter(todos => todos.id !== index)});
+    await localStorage.setItem('todos', JSON.stringify(this.state.todo));
   }
 
   render() {
