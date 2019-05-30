@@ -7,16 +7,16 @@ import CompletedTodo from './completedTodo'
 
 
 export default function TodoList(props) {
-    const { todos, onFinish, completed } = props;
+    const { todos, onFinish, completed, removeCompleted } = props;
     return (
         <div>
             <h3>Pending Todos</h3>
             {todos.map(todo => {
-                return <Todo  key={todo.id} todo={todo} onFinish={onFinish} />
+                return <Todo  key={todo.id} todo={todo} onFinish={onFinish} removeCompleted={removeCompleted} />
             })}
             <h3>Completed</h3>
             {completed.map(todo => {
-                return <CompletedTodo key={completed.key} completed={todo}/>
+                return <CompletedTodo key={todo.id} completed={todo}/>
             })}
         </div>
     )
