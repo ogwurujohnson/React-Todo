@@ -30,7 +30,9 @@ class App extends Component {
     this.state = {
       todo: defaultContent,
       completedtodo: [],
-      value: ''
+      mainTodo: defaultContent,
+      value: '',
+      searchValue: ''
     }
   }
 
@@ -38,6 +40,7 @@ class App extends Component {
     const item = localStorage.getItem('todos');
     const itemData = JSON.parse(item);
     await this.setState({todo: itemData || defaultContent})
+    await this.setState({mainTodo: itemData || defaultContent})
 
     const removed = localStorage.getItem('removed');
     const removedData = JSON.parse(removed);
@@ -59,6 +62,7 @@ class App extends Component {
     }
     if (newTodo.task){
       await this.setState({todo: [...this.state.todo, newTodo] })
+      await this.setState({mainTodo: [...this.state.mainTodo, newTodo]})
       await localStorage.setItem('todos', JSON.stringify(this.state.todo));
     } else {
 
