@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Todo(props) {
-    const { todo, onFinish } = props;
+    const { todo, onFinish, removeCompleted } = props;
     let className = '';
     className = todo.completed?"completed":"pending"
     
@@ -13,6 +13,10 @@ export default function Todo(props) {
                  }} type="checkbox" />
 
                  {todo.task}
+
+                 <button onClick={() => {
+                     removeCompleted(todo.id)
+                 }}>Remove</button>
             </p>
         </div>
     )
