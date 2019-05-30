@@ -7,22 +7,30 @@ import './components/TodoComponents/Todo.css';
 class App extends Component {
   constructor () {
     super();
+    this.defaultContent = [
+      {
+        task: 'Visit Melvine',
+        id: 1528817077286,
+        completed: false
+      },
+      {
+        task: 'Go to Hospital',
+        id: 1528817084358,
+        completed: false
+      }
+    ]
+
     this.state = {
-      todo: [
-        {
-          task: 'Visit Melvine',
-          id: 1528817077286,
-          completed: false
-        },
-        {
-          task: 'Go to Hospital',
-          id: 1528817084358,
-          completed: false
-        }
-      ],
+      todo: this.defaultContent,
       completedtodo: [],
       value: ''
     }
+  }
+
+  async componentDidMount() {
+    const item = localStorage.getItem('todos');
+    const itemData = JSON.parse(item);
+    this.setState({todo: itemData || this.defaultContent})
   }
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -32,14 +40,15 @@ class App extends Component {
   }
 
   
-  onClick = () => {
+  addTodo = async () => {
    const newTodo = {
       task: this.state.value,
       id: Date.now(),
       completed: false
     }
     if (newTodo.task){
-      this.setState({todo: [...this.state.todo, newTodo] })
+      await this.setState({todo: [...this.state.todo, newTodo] })
+      await localStorage.setItem('todos', JSON.stringify(this.state.todo));
     } else {
 
     }
@@ -74,7 +83,7 @@ class App extends Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm values={this.state.value} removeCompleted = {this.removeCompleted} onChange={this.onChange} onClick={this.onClick}/>
+        <TodoForm values={this.state.value} removeCompleted = {this.removeCompleted} onChange={this.onChange} onClick={this.addTodo}/>
         <TodoList todos={this.state.todo} removeCompleted = {this.removeSingle} completed={this.state.completedtodo} onFinish={this.onFinish}/>
       </div>
     );
