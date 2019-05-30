@@ -1,4 +1,5 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Todo(props) {
     const { todo, onFinish, removeCompleted } = props;
@@ -13,7 +14,7 @@ export default function Todo(props) {
                  }} type="checkbox" />{todo.task}
             </p>
             <button className="removeSelected" onClick={() => {removeCompleted(todo.id)}}>
-                X
+                <FontAwesomeIcon icon="trash" />
             </button>
         </div>
     )
