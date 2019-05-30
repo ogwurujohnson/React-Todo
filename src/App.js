@@ -58,7 +58,16 @@ class App extends Component {
 
   removeCompleted = () => {
     this.setState({todo: this.state.todo.filter(todos => todos.completed === false)});
-    this.setState({completedtodo: [...this.state.completedtodo,this.state.todo.filter(todos => todos.completed === true)]});
+    const newArr = this.state.todo.filter(todos => todos.completed === true);
+   
+    this.setState({completedtodo: [...this.state.completedtodo, ...newArr]});
+    
+  }
+
+  removeSingle = (index) => {
+    this.setState({todo: this.state.todo.filter(todos => todos.id !== index)});
+    const newArr = this.state.todo.filter(todos => todos.id === index);
+    this.setState({completedtodo: [...this.state.completedtodo, newArr[0]]});
   }
 
   render() {
@@ -66,7 +75,7 @@ class App extends Component {
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm values={this.state.value} removeCompleted = {this.removeCompleted} onChange={this.onChange} onClick={this.onClick}/>
-        <TodoList todos={this.state.todo} completed={this.state.completedtodo} onFinish={this.onFinish}/>
+        <TodoList todos={this.state.todo} removeCompleted = {this.removeSingle} completed={this.state.completedtodo} onFinish={this.onFinish}/>
       </div>
     );
   }
