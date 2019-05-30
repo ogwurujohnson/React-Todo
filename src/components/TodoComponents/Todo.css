@@ -8,7 +8,7 @@
 
 .todo {
     display: flex;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -80,13 +80,26 @@
 }
 
 .singleTodo {
-    border: 1px solid black;
+    border-top: 2px solid grey;
     margin-bottom: 10px;
-    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+.singleTodo:hover {
+    box-shadow: 3px 3px 5px 6px #ccc; 
+}
+
+.singleTodo .removeSelected {
+    background: black;
+    color: white;
+    font-size: 16px;
 }
 
 .singleTodo p {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
+    width: 100%;
 }
+

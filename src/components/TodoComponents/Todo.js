@@ -6,18 +6,15 @@ export default function Todo(props) {
     className = todo.completed?"completed":"pending"
     
     return (
-        <div>
+        <div className="singleTodo">
             <p className={className}>
                  <input onChange={()=>{
                      onFinish(todo.id)
-                 }} type="checkbox" />
-
-                 {todo.task}
-
-                 <button onClick={() => {
-                     removeCompleted(todo.id)
-                 }}>Remove</button>
+                 }} type="checkbox" />{todo.task}
             </p>
+            <button className="removeSelected" onClick={() => {removeCompleted(todo.id)}}>
+                X
+            </button>
         </div>
     )
 }
